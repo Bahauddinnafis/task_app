@@ -1,34 +1,35 @@
 class Todo {
-  final int userId;
-  final int id;
-  final String title;
-  final bool completed;
-  final DateTime? dateCreated;
-  final DateTime? dueDate;
-  final String? description;
+  int? userId;
+  int? id;
+  String? title;
+  bool completed;
+  DateTime dateCreated;
+  DateTime dueDate;
+  String? description;
 
   Todo({
-    required this.userId,
-    required this.id,
-    required this.title,
-    required this.completed,
-    this.dateCreated,
-    this.dueDate,
+    this.userId,
+    this.id,
+    this.title,
+    this.completed = false,
+    DateTime? dateCreated,
+    DateTime? dueDate,
     this.description,
-  });
+  })  : dateCreated = dateCreated ?? DateTime.now(),
+        dueDate = dueDate ?? DateTime.now();
 
   factory Todo.fromJson(Map<String, dynamic> json) {
     return Todo(
-      userId: json['userId'],
-      id: json['id'],
-      title: json['title'],
-      completed: json['completed'],
-      dateCreated: json['dateCreated'] != null
-          ? DateTime.parse(json['dateCreated'])
-          : null,
-      dueDate: json['dueDate'] != null ? DateTime.parse(json['dueDate']) : null,
-      description: json['description']
-    );
+        userId: json['userId'],
+        id: json['id'],
+        title: json['title'],
+        completed: json['completed'],
+        dateCreated: json['dateCreated'] != null
+            ? DateTime.parse(json['dateCreated'])
+            : null,
+        dueDate:
+            json['dueDate'] != null ? DateTime.parse(json['dueDate']) : null,
+        description: json['description']);
   }
 
   Map<String, dynamic> toJson() {
